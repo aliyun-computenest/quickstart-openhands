@@ -54,19 +54,21 @@ Artifact:
     ArtifactType: EcsImage
     ArtifactName: ecs_image_quickstart-openhands
     Description: quickstart-openhands EcsImage
-    SupportRegionIds:
-    - ap-southeast-1
-    ArtifactBuildProperty:
-      CodeRepo:
-        Platform: github
-        Owner: hanans426
-        RepoName: aliyun-computenest/quickstart-openhands
-        Branch: main
-      RegionId: ap-southeast-1
-      CommandType: RunShellScript
-      SourceImageId: 
-        aliyun/services/ecs/images/linux/aliyun-latest/alibaba_cloud_linux_3_2104_lts_x64
-      CommandContent: |-
+    ArtifactProperty:
+      RegionId: ${ImageBuilder.EcsImage.RegionId}
+      ImageId: ${ImageBuilder.EcsImage.SourceImageId}
+ImageBuilder:
+  EcsImage:
+    RegionId: ap-southeast-1
+    # 使用最新的LTS版本Alibaba Cloud Linux
+    SourceImageId: aliyun_3_x64_20G_alibase_20240819.vhd
+    SystemDiskSize: 20
+    InstanceType: ecs.c6.large
+    InternetMaxBandwidthOut: 10
+    CommandType: RunShellScript
+    Timeout: 10800
+    Tags: [ ]
+    CommandContent: |-
         #!/bin/bash
         # 升级基础组件：
         yum check-update
