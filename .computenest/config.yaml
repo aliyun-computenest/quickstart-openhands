@@ -45,10 +45,15 @@ Service:
     # 英文版可以再配置Locale为en-US的服务信息
   - Locale: zh-CN
     Name: OpenHands社区版
-    ShortDescription: Service description
+    ShortDescription: OpenHands 是一款基于 AI 
+      的编程工具，旨在通过多智能体协作提升开发效率，减少开发者的编码工作量。它支持代码编写、命令行操作、网页浏览等多种功能，帮助开发者快速完成项目构建、测试和部署。OpenHands
+      提供了一个安全的沙箱环境，确保代码执行的安全性。同时，它还支持多代理协作，能够将复杂任务分解为多个子任务，由不同的代理协同完成。OpenHands 涵盖了软件工程、网页浏览等多个领域的
+      15 个基准测试，为学术界和工业界的研究与应用提供了有力支持。
     Image: 
       https://service-info-public.oss-cn-hangzhou.aliyuncs.com/1853370294850618/service-image/27792447-0c93-4e58-b4f6-21adf8dac2b0.png
-    Softwares: []
+    Softwares:
+    - Name: OpenHands
+      Version: '0.47'
 Artifact:
   EcsImage:
     ArtifactType: EcsImage
@@ -67,56 +72,56 @@ ImageBuilder:
     InternetMaxBandwidthOut: 10
     CommandType: RunShellScript
     Timeout: 10800
-    Tags: [ ]
+    Tags: []
     CommandContent: |-
-        #!/bin/bash
-        # 升级基础组件：
-        yum check-update
-        yum -y upgrade --security
-        yum -y upgrade-minimal
-        
-        # 安装docker-ce
-        yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
-        yum makecache
-        yum install -y curl git docker-ce
-        mkdir -p /etc/docker/
+      #!/bin/bash
+      # 升级基础组件：
+      yum check-update
+      yum -y upgrade --security
+      yum -y upgrade-minimal
+
+      # 安装docker-ce
+      yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+      yum makecache
+      yum install -y curl git docker-ce
+      mkdir -p /etc/docker/
+      echo '{
+          "default-address-pools": [
+              {
+                  "base": "10.255.0.0/16",
+                  "size": 24
+              }
+          ]
+      }' > /etc/docker/daemon.json
+
+      prefixChinaRegion="cn-"
+      region=$(curl -s http://100.100.100.200/latest/meta-data/region-id)
+
+      if [[ ${region} == ${prefixChinaRegion}* && ${region} != "cn-hongkong" ]]; then
         echo '{
             "default-address-pools": [
                 {
                     "base": "10.255.0.0/16",
                     "size": 24
                 }
+            ],
+            "registry-mirrors": [
+                "https://mirrors-ssl.aliyuncs.com/"
             ]
         }' > /etc/docker/daemon.json
-        
-        prefixChinaRegion="cn-"
-        region=$(curl -s http://100.100.100.200/latest/meta-data/region-id)
-        
-        if [[ ${region} == ${prefixChinaRegion}* && ${region} != "cn-hongkong" ]]; then
-          echo '{
-              "default-address-pools": [
-                  {
-                      "base": "10.255.0.0/16",
-                      "size": 24
-                  }
-              ],
-              "registry-mirrors": [
-                  "https://mirrors-ssl.aliyuncs.com/"
-              ]
-          }' > /etc/docker/daemon.json
-        fi
-        
-        sudo systemctl enable --now docker.socket
-        sudo systemctl enable --now docker.service
-        
-        docker pull docker.all-hands.dev/all-hands-ai/runtime:0.47-nikolaik
+      fi
 
-        docker run -d --rm --pull=always \
-            -e SANDBOX_RUNTIME_CONTAINER_IMAGE=docker.all-hands.dev/all-hands-ai/runtime:0.47-nikolaik \
-            -e LOG_ALL_EVENTS=true \
-            -v /var/run/docker.sock:/var/run/docker.sock \
-            -v ~/.openhands:/.openhands \
-            -p 3000:3000 \
-            --add-host host.docker.internal:host-gateway \
-            --name openhands-app \
-            docker.all-hands.dev/all-hands-ai/openhands:0.47
+      sudo systemctl enable --now docker.socket
+      sudo systemctl enable --now docker.service
+
+      docker pull docker.all-hands.dev/all-hands-ai/runtime:0.47-nikolaik
+
+      docker run -d --rm --pull=always \
+          -e SANDBOX_RUNTIME_CONTAINER_IMAGE=docker.all-hands.dev/all-hands-ai/runtime:0.47-nikolaik \
+          -e LOG_ALL_EVENTS=true \
+          -v /var/run/docker.sock:/var/run/docker.sock \
+          -v ~/.openhands:/.openhands \
+          -p 3000:3000 \
+          --add-host host.docker.internal:host-gateway \
+          --name openhands-app \
+          docker.all-hands.dev/all-hands-ai/openhands:0.47
