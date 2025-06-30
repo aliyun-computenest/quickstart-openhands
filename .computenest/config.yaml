@@ -67,5 +67,54 @@ Artifact:
       SourceImageId: 
         aliyun/services/ecs/images/linux/aliyun-latest/alibaba_cloud_linux_3_2104_lts_x64
       CommandContent: |-
-        mkdir -p /root/application
-        cp -r /root/code/./* /root/application/;
+        #!/bin/bash
+        # 升级基础组件：
+        yum check-update
+        yum -y upgrade --security
+        yum -y upgrade-minimal
+        
+        # 安装docker-ce
+        yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+        yum makecache
+        yum install -y curl git docker-ce
+        mkdir -p /etc/docker/
+        echo '{
+            "default-address-pools": [
+                {
+                    "base": "10.255.0.0/16",
+                    "size": 24
+                }
+            ]
+        }' > /etc/docker/daemon.json
+        
+        prefixChinaRegion="cn-"
+        region=$(curl -s http://100.100.100.200/latest/meta-data/region-id)
+        
+        if [[ ${region} == ${prefixChinaRegion}* && ${region} != "cn-hongkong" ]]; then
+          echo '{
+              "default-address-pools": [
+                  {
+                      "base": "10.255.0.0/16",
+                      "size": 24
+                  }
+              ],
+              "registry-mirrors": [
+                  "https://mirrors-ssl.aliyuncs.com/"
+              ]
+          }' > /etc/docker/daemon.json
+        fi
+        
+        sudo systemctl enable --now docker.socket
+        sudo systemctl enable --now docker.service
+        
+        docker pull docker.all-hands.dev/all-hands-ai/runtime:0.47-nikolaik
+
+        docker run -it --rm --pull=always \
+            -e SANDBOX_RUNTIME_CONTAINER_IMAGE=docker.all-hands.dev/all-hands-ai/runtime:0.47-nikolaik \
+            -e LOG_ALL_EVENTS=true \
+            -v /var/run/docker.sock:/var/run/docker.sock \
+            -v ~/.openhands:/.openhands \
+            -p 3000:3000 \
+            --add-host host.docker.internal:host-gateway \
+            --name openhands-app \
+            docker.all-hands.dev/all-hands-ai/openhands:0.47
