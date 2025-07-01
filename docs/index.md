@@ -35,7 +35,7 @@ OpenHands在计算巢上的费用主要涉及：
 
 ## 部署架构
 部署架构采用ECS(云服务器)单机部署
-![img_1.png](img_1.png)`(部署概述内容)`
+![img.png](img_1.png)`(部署概述内容)`
 
 ## 部署流程
 
@@ -55,8 +55,8 @@ OpenHands在计算巢上的费用主要涉及：
 #### 配置使用百炼的模型
 1. 进入OpenHands页面后，首先需要配置模型，如果使用推荐的模型，配置对应API Key即可。
 2. 如果想使用百炼的模型，可以点击"Advanced Settings"
-   ![img.png](img.png)
+   ![img_4.png](img_4.png)
 3. Advanced Settings中通过OpenAI的兼容接口来配置百炼的Base Url 为：https://dashscope.aliyuncs.com/compatible-mode/v1
-选择Custom Model， Custom Model的格式为"openai/model_name" 可选的model_name参考链接：https://help.aliyun.com/zh/model-studio/compatibility-of-openai-with-dashscope?spm=a2c4g.11186623.help-menu-2400256.d_2_9_0.fef0516eQvFk8s&scm=20140722.H_2833609._.OR_help-T_cn~zh-V_1
-   ![img_1.png](img_1.png)
+选择Custom Model， Custom Model的格式为"openai/model_name" 可选的model_name[参考链接](https://help.aliyun.com/zh/model-studio/compatibility-of-openai-with-dashscope?spm=a2c4g.11186623.help-menu-2400256.d_2_9_0.fef0516eQvFk8s&scm=20140722.H_2833609._.OR_help-T_cn~zh-V_1)
+   ![img_5.png](img_5.png)
 4. 配置百炼的API Key，点击"Save"保存即可
