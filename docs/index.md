@@ -40,7 +40,7 @@ OpenHands在计算巢上的费用主要涉及：
 ## 部署流程
 
 ### 部署步骤
-1. 访问计算巢OpenHands社区版[部署链接](https://computenest.console.aliyun.com/user/default/serviceInstanceCreate?ServiceName=OpenHands社区版)
+1. 访问计算巢OpenHands社区版[部署链接](https://computenest.console.aliyun.com/service/instance/create/default?type=user&ServiceName=OpenHands%E7%A4%BE%E5%8C%BA%E7%89%88)
    按提示填写部署参数,配置ECS实例规格和密码
    ![img_2.png](img_2.png)
 2. 配置专有网络和可用区
