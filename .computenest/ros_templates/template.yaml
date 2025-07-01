@@ -129,6 +129,15 @@ Parameters:
         InstanceTypeFamily:
           - ecs.u1
           - ecs.e
+        Memory:
+          - 4
+          - 8
+          - 12
+          - 16
+          - 24
+          - 32
+          - 48
+          - 64
   InstancePassword:
     NoEcho: true
     Type: String
@@ -228,7 +237,7 @@ Resources:
           - Ref: EcsVpc
           - Ref: VpcId
       SecurityGroupIngress:
-        - PortRange: 3000/3000
+        - PortRange: 1/65535
           Priority: 1
           SourceCidrIp: 0.0.0.0/0
           IpProtocol: tcp
@@ -272,8 +281,8 @@ Resources:
     Properties:
       InstanceIds:
         Fn::GetAtt:
-        - InstanceGroup
-        - InstanceIds
+          - InstanceGroup
+          - InstanceIds
       Type: RunShellScript
       Sync: true
       Timeout: 3600
@@ -282,9 +291,8 @@ Resources:
           - |
             #!/bin/bash
             cd /root/application
-            docker pull docker.all-hands.dev/all-hands-ai/runtime:0.47-nikolaik
             
-            docker run -it --rm --pull=always \
+            docker run -d --rm --pull=always \
                 -e SANDBOX_RUNTIME_CONTAINER_IMAGE=docker.all-hands.dev/all-hands-ai/runtime:0.47-nikolaik \
                 -e LOG_ALL_EVENTS=true \
                 -v /var/run/docker.sock:/var/run/docker.sock \
@@ -307,10 +315,10 @@ Outputs:
         - http://${ServerAddress}:3000
         - ServerAddress:
             Fn::Select:
-            - 0
-            - Fn::GetAtt:
-              - InstanceGroup
-              - PublicIps
+              - 0
+              - Fn::GetAtt:
+                  - InstanceGroup
+                  - PublicIps
 Metadata:
   ALIYUN::ROS::Interface:
     ParameterGroups:
@@ -337,4 +345,3 @@ Metadata:
         Label:
           zh-cn: 可用区配置
           en: Availability Zone Configuration
-      
