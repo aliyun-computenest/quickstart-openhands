@@ -59,4 +59,4 @@ OpenHands在计算巢上的费用主要涉及：
 3. Advanced Settings中通过OpenAI的兼容接口来配置百炼的Base Url 为：https://dashscope.aliyuncs.com/compatible-mode/v1
 选择Custom Model， Custom Model的格式为"openai/model_name" 可选的model_name[参考链接](https://help.aliyun.com/zh/model-studio/compatibility-of-openai-with-dashscope?spm=a2c4g.11186623.help-menu-2400256.d_2_9_0.fef0516eQvFk8s&scm=20140722.H_2833609._.OR_help-T_cn~zh-V_1)
    ![img_5.png](img_5.png)
-4. 配置百炼的API Key，点击"Save"保存即可
+4. 配置百炼的API Key，点击"Save"保存即可。API Key的获取方式请参考：[获取百炼API Key](https://developer.aliyun.com/article/1655158?spm=5176.24779694.0.0.178f7f8bkOyGLR)
