@@ -129,7 +129,7 @@ Parameters:
         InstanceTypeFamily:
           - ecs.u1
           - ecs.e
-        Memory:
+        Memory: 
           - 4
           - 8
           - 12
@@ -276,13 +276,53 @@ Resources:
       InternetMaxBandwidthOut: 5
       IoOptimized: optimized
       MaxAmount: 1
+      DiskMappings:
+        - Category: cloud_essd
+          Size: 200
+      # 数据盘初始化和挂载
+      UserData: |
+        #cloud-config
+        bootcmd:
+          - |
+            #!/bin/bash
+            function init_and_mount_data_disk() {
+                disk_device="/dev/vdb"
+                parted_disk_device="/dev/vdb1"
+                mount_point="/data"
+                # 已初始化的磁盘，跳过初始化，直接挂载
+                if blkid -o value -s TYPE $disk_device &>/dev/null; then
+                  echo "Disk is already initialized."
+                else
+                  echo "Disk is not initialized, initializing..."
+                  cat >> /root/InitDataDisk.sh << "EOF"
+            #!/bin/bash
+            echo "p
+            n
+            p
+
+
+
+            w
+            " |  fdisk -u /dev/vdb
+            EOF
+                  /bin/bash /root/InitDataDisk.sh
+                  rm -f /root/InitDataDisk.sh
+                  mkfs -t ext4 $parted_disk_device
+                fi
+
+                cp /etc/fstab /etc/fstab.bak
+                mkdir $mount_point
+                echo `blkid $parted_disk_device | awk '{print $2}' | sed 's/\\\"//g'` $mount_point ext4 defaults 0 0 >> /etc/fstab
+                mount -a
+            }
+            init_and_mount_data_disk
   RunInstallCommand:
     Type: ALIYUN::ECS::RunCommand
     Properties:
       InstanceIds:
         Fn::GetAtt:
-          - InstanceGroup
-          - InstanceIds
+        - InstanceGroup
+        - InstanceIds
       Type: RunShellScript
       Sync: true
       Timeout: 3600
@@ -296,7 +336,7 @@ Resources:
                 -e SANDBOX_RUNTIME_CONTAINER_IMAGE=docker.all-hands.dev/all-hands-ai/runtime:0.47-nikolaik \
                 -e LOG_ALL_EVENTS=true \
                 -v /var/run/docker.sock:/var/run/docker.sock \
-                -v ~/.openhands:/.openhands \
+                -v ~/data/openhands:/.openhands \
                 -p 3000:3000 \
                 --add-host host.docker.internal:host-gateway \
                 --name openhands-app \
@@ -315,10 +355,10 @@ Outputs:
         - http://${ServerAddress}:3000
         - ServerAddress:
             Fn::Select:
-              - 0
-              - Fn::GetAtt:
-                  - InstanceGroup
-                  - PublicIps
+            - 0
+            - Fn::GetAtt:
+              - InstanceGroup
+              - PublicIps
 Metadata:
   ALIYUN::ROS::Interface:
     ParameterGroups:
@@ -345,3 +385,4 @@ Metadata:
         Label:
           zh-cn: 可用区配置
           en: Availability Zone Configuration
+      
