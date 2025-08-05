@@ -45,15 +45,23 @@ Service:
     # 英文版可以再配置Locale为en-US的服务信息
   - Locale: zh-CN
     Name: OpenHands社区版
-    ShortDescription: OpenHands 是一款基于 AI 
-      的编程工具，旨在通过多智能体协作提升开发效率，减少开发者的编码工作量。它支持代码编写、命令行操作、网页浏览等多种功能，帮助开发者快速完成项目构建、测试和部署。OpenHands
+    ShortDescription: "\nOpenHands 是一款基于 AI 的编程工具，旨在通过多智能体协作提升开发效率，减少开发者的编码工作量。它支持代码编写、命令行操作、网页浏览等多种功能，帮助开发者快速完成项目构建、测试和部署。OpenHands
       提供了一个安全的沙箱环境，确保代码执行的安全性。同时，它还支持多代理协作，能够将复杂任务分解为多个子任务，由不同的代理协同完成。OpenHands 涵盖了软件工程、网页浏览等多个领域的
-      15 个基准测试，为学术界和工业界的研究与应用提供了有力支持。
+      15 个基准测试，为学术界和工业界的研究与应用提供了有力支持。"
     Image: 
-      https://service-info-public.oss-cn-hangzhou.aliyuncs.com/1853370294850618/service-image/27792447-0c93-4e58-b4f6-21adf8dac2b0.png
-    Softwares:
-    - Name: OpenHands
-      Version: '0.47'
+      https://service-info-public.oss-cn-hangzhou.aliyuncs.com/5141674772595072/service-image/c6a3c40f-6ca3-43aa-b6ea-ce73c6247a71.png
+    Softwares: []
+  - Locale: en-US
+    Name: OpenHands Community Edition
+    ShortDescription: "OpenHands is an AI-based programming tool designed to enhance
+      development efficiency and reduce developers' coding workload through multi-agent
+      collaboration. It supports multiple functions such as code writing, command-line
+      operations, and web browsing, helping developers quickly complete project construction,
+      testing, and deployment. OpenHands provides a secure sandbox environment to
+      ensure the security of code execution. "
+    Image: 
+      https://service-info-public.oss-cn-hangzhou.aliyuncs.com/5141674772595072/service-image/c6a3c40f-6ca3-43aa-b6ea-ce73c6247a71.png
+    Softwares: []
 Artifact:
   EcsImage:
     ArtifactType: EcsImage
