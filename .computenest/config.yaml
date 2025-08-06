@@ -75,9 +75,9 @@ ImageBuilder:
     RegionId: ap-southeast-1
     # 使用最新的LTS版本Alibaba Cloud Linux
     SourceImageId: aliyun_3_x64_20G_alibase_20240819.vhd
-    SystemDiskSize: 20
-    InstanceType: ecs.c6.large
-    InternetMaxBandwidthOut: 10
+    SystemDiskSize: 40
+    InstanceType: ecs.c7.2xlarge
+    InternetMaxBandwidthOut: 100
     CommandType: RunShellScript
     Timeout: 10800
     Tags: []
