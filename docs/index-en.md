@@ -54,7 +54,7 @@ Enter the deployment parameters as prompted, and configure the ECS instance type
 ### Instructions for use
 #### Configure the model using Refined
 1. After entering the OpenHands page, you first need to configure the model. If you use the recommend model, you can configure the corresponding API Key.
-2. If you want to use the refined model, you can click "Advanced Settings"
+2. If you want to use a refined model, you can click "Advanced Settings"
 ![img_4.png](images-en/img_4.png)
 3. In the Advanced Settings, the base Url configured by the compatible interface of OpenAI is https://dashscope.aliyuncs.com/compatible-mode/v1
 Select Custom Model, the format of Custom Model is "openai/model_name" optional model_name [reference link](https://help.aliyun.com/zh/model-studio/compatibility-of-openai-with-dashscope?spm=a2c4g.11186623.help-menu-2400256.d_2_9_0.fef0516eQvFk8s&scm=20140722.H_2833609. OR_help-T_cn ~ zh-V_1)
