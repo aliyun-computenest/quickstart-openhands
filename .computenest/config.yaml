@@ -47,11 +47,13 @@ Service:
     Name: OpenHands 社区版
     ShortDescription: OpenHands 是一款基于 AI 
       的编程工具，旨在通过多智能体协作提升开发效率，减少开发者的编码工作量。它支持代码编写、命令行操作、网页浏览等多种功能，帮助开发者快速完成项目构建、测试和部署。OpenHands
-      提供了一个安全的沙箱环境，确保代码执行的安全性。同时，它还支持多代理协作，能够将复杂任务分解为多个子任务，由不同的代理协同完成。OpenHands 涵盖了软件工程、网页浏览等多个领域的
-      15 个基准测试，为学术界和工业界的研究与应用提供了有力支持。
+      提供了一个安全的沙箱环境，确保代码执行的安全性。同时，它还支持多代理协作，能够将复杂任务分解为多个子任务，由不同的代理协同完成。OpenHands 
+      涵盖了软件工程、网页浏览等多个领域的 15 个基准测试，为学术界和工业界的研究与应用提供了有力支持。
     Image: 
       https://service-info-public.oss-cn-hangzhou.aliyuncs.com/1853370294850618/service-image/3dcf6af4-dace-442e-8de2-da0198d75528.png
-    Softwares: []
+    Softwares:
+    - Name: OpenHands
+      Version: v1.1.0
 Artifact:
   EcsImage:
     ArtifactType: EcsImage
