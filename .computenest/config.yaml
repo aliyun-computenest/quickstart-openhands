@@ -64,30 +64,6 @@ Service:
       ArchitectureDiagramUrl: 'resources/architecture/architecture.jpg'
       AllowedRegions:
         - ap-southeast-1
-        - cn-hangzhou
-        - cn-huhehaote
-        - cn-shanghai
-        - cn-qingdao
-        - cn-beijing
-        - cn-zhangjiakou
-        - cn-wulanchabu
-        - cn-shenzhen
-        - cn-heyuan
-        - cn-guangzhou
-        - cn-chengdu
-        - cn-hongkong
-        - ap-southeast-3
-        - ap-southeast-5
-        - ap-southeast-6
-        - ap-southeast-7
-        - ap-northeast-1
-        - ap-northeast-2
-        - eu-central-1
-        - eu-west-1
-        - us-west-1
-        - us-east-1
-        - me-central-1
-        - me-east-1
   ServiceType: private
   ServiceInfo:
     # 英文版可以再配置Locale为en-US的服务信息
@@ -124,38 +100,40 @@ Artifact:
       RegionId: cn-hongkong
       CommandType: RunShellScript
       CommandContent: |-
-          #!/bin/bash
-          yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
-          yum makecache
-          yum install -y curl git docker-ce
-          mkdir -p /etc/docker/
-          echo '{
-              "default-address-pools": [
-                  {
-                      "base": "10.255.0.0/16",
-                      "size": 24
-                  }
-              ]
-          }' > /etc/docker/daemon.json
+      #!/bin/bash
+      yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+      yum makecache
+      yum install -y curl git docker-ce
+      mkdir -p /etc/docker/
+      echo '{
+          "default-address-pools": [
+              {
+                  "base": "10.255.0.0/16",
+                  "size": 24
+              }
+          ]
+      }' > /etc/docker/daemon.json
 
-          prefixChinaRegion="cn-"
-          region=$(curl -s http://100.100.100.200/latest/meta-data/region-id)
+      prefixChinaRegion="cn-"
+      region=$(curl -s http://100.100.100.200/latest/meta-data/region-id)
 
-          if [[ ${region} == ${prefixChinaRegion}* && ${region} != "cn-hongkong" ]]; then
-            echo '{
-                "default-address-pools": [
-                    {
-                        "base": "10.255.0.0/16",
-                        "size": 24
-                    }
-                ],
-                "registry-mirrors": [
-                    "https://mirrors-ssl.aliyuncs.com/"
-                ]
-            }' > /etc/docker/daemon.json
-          fi
+      if [[ ${region} == ${prefixChinaRegion}* && ${region} != "cn-hongkong" ]]; then
+        echo '{
+            "default-address-pools": [
+                {
+                    "base": "10.255.0.0/16",
+                    "size": 24
+                }
+            ],
+            "registry-mirrors": [
+                "https://mirrors-ssl.aliyuncs.com/"
+            ]
+        }' > /etc/docker/daemon.json
+      fi
 
-          sudo systemctl enable --now docker.socket
-          sudo systemctl enable --now docker.service
+      sudo systemctl enable --now docker.socket
+      sudo systemctl enable --now docker.service
 
-          docker pull docker.all-hands.dev/all-hands-ai/runtime:0.14-nikolaik
+      git clone https://gitcode.com/GitHub_Trending/ope/OpenHands.git
+      cd OpenHands
+      docker compose up -d
