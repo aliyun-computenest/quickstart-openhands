@@ -64,6 +64,30 @@ Service:
       ArchitectureDiagramUrl: 'resources/architecture/architecture.jpg'
       AllowedRegions:
         - ap-southeast-1
+        - cn-hangzhou
+        - cn-huhehaote
+        - cn-shanghai
+        - cn-qingdao
+        - cn-beijing
+        - cn-zhangjiakou
+        - cn-wulanchabu
+        - cn-shenzhen
+        - cn-heyuan
+        - cn-guangzhou
+        - cn-chengdu
+        - cn-hongkong
+        - ap-southeast-3
+        - ap-southeast-5
+        - ap-southeast-6
+        - ap-southeast-7
+        - ap-northeast-1
+        - ap-northeast-2
+        - eu-central-1
+        - eu-west-1
+        - us-west-1
+        - us-east-1
+        - me-central-1
+        - me-east-1
   ServiceType: private
   ServiceInfo:
     # 英文版可以再配置Locale为en-US的服务信息
@@ -91,43 +115,16 @@ Artifact:
     ArtifactType: EcsImage
     ArtifactName: ecs_image_quickstart-openhands
     Description: quickstart-openhands EcsImage
-    SupportRegionIds:
-        - ap-southeast-1
-        - cn-hangzhou
-        - cn-huhehaote
-        - cn-shanghai
-        - cn-qingdao
-        - cn-beijing
-        - cn-zhangjiakou
-        - cn-wulanchabu
-        - cn-shenzhen
-        - cn-heyuan
-        - cn-guangzhou
-        - cn-chengdu
-        - cn-hongkong
-        - ap-southeast-3
-        - ap-southeast-5
-        - ap-southeast-6
-        - ap-southeast-7
-        - ap-northeast-1
-        - ap-northeast-2
-        - eu-central-1
-        - eu-west-1
-        - us-west-1
-        - us-east-1
-        - me-central-1
-        - me-east-1
     ArtifactBuildProperty:
       CodeRepo:
         Platform: github
         Owner: LYH-RAIN
         RepoName: aliyun-computenest/quickstart-openhands
         Branch: main
-      RegionId: ap-southeast-1
+      RegionId: cn-hongkong
       CommandType: RunShellScript
       CommandContent: |-
       #!/bin/bash
-      # 安装docker-ce
       yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
       yum makecache
       yum install -y curl git docker-ce
