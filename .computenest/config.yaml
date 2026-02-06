@@ -63,7 +63,7 @@ Service:
       Url: 'ros_templates/template.yaml'
       ArchitectureDiagramUrl: 'resources/architecture/architecture.jpg'
       AllowedRegions:
-      - ap-southeast-1
+        - ap-southeast-1
   ServiceType: private
   ServiceInfo:
     # 英文版可以再配置Locale为en-US的服务信息
@@ -127,11 +127,6 @@ Artifact:
       CommandType: RunShellScript
       CommandContent: |-
       #!/bin/bash
-      # 升级基础组件：
-      yum check-update
-      yum -y upgrade --security
-      yum -y upgrade-minimal
-
       # 安装docker-ce
       yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
       yum makecache
