@@ -30,6 +30,30 @@ Service:
         ArchitectureDiagramUrl: 'resources/architecture/architecture.jpg'
         AllowedRegions:
         - ap-southeast-1
+        - cn-hangzhou
+        - cn-huhehaote
+        - cn-shanghai
+        - cn-qingdao
+        - cn-beijing
+        - cn-zhangjiakou
+        - cn-wulanchabu
+        - cn-shenzhen
+        - cn-heyuan
+        - cn-guangzhou
+        - cn-chengdu
+        - cn-hongkong
+        - ap-southeast-3
+        - ap-southeast-5
+        - ap-southeast-6
+        - ap-southeast-7
+        - ap-northeast-1
+        - ap-northeast-2
+        - eu-central-1
+        - eu-west-1
+        - us-west-1
+        - us-east-1
+        - me-central-1
+        - me-east-1
       ArtifactRelation:
         ecs_image_quickstart-openhands:
           ArtifactId: ${Artifact.EcsImage.ArtifactId}
@@ -45,7 +69,7 @@ Service:
     # 英文版可以再配置Locale为en-US的服务信息
   - Locale: zh-CN
     Name: OpenHands社区版
-    ShortDescription: "\nOpenHands 是一款基于 AI 的编程工具，旨在通过多智能体协作提升开发效率，减少开发者的编码工作量。它支持代码编写、命令行操作、网页浏览等多种功能，帮助开发者快速完成项目构建、测试和部署。OpenHands
+    ShortDescription: "OpenHands 是一款基于 AI 的编程工具，旨在通过多智能体协作提升开发效率，减少开发者的编码工作量。它支持代码编写、命令行操作、网页浏览等多种功能，帮助开发者快速完成项目构建、测试和部署。OpenHands
       提供了一个安全的沙箱环境，确保代码执行的安全性。同时，它还支持多代理协作，能够将复杂任务分解为多个子任务，由不同的代理协同完成。OpenHands 涵盖了软件工程、网页浏览等多个领域的
       15 个基准测试，为学术界和工业界的研究与应用提供了有力支持。"
     Image: 
@@ -69,6 +93,30 @@ Artifact:
     Description: quickstart-openhands EcsImage
     SupportRegionIds:
         - ap-southeast-1
+        - cn-hangzhou
+        - cn-huhehaote
+        - cn-shanghai
+        - cn-qingdao
+        - cn-beijing
+        - cn-zhangjiakou
+        - cn-wulanchabu
+        - cn-shenzhen
+        - cn-heyuan
+        - cn-guangzhou
+        - cn-chengdu
+        - cn-hongkong
+        - ap-southeast-3
+        - ap-southeast-5
+        - ap-southeast-6
+        - ap-southeast-7
+        - ap-northeast-1
+        - ap-northeast-2
+        - eu-central-1
+        - eu-west-1
+        - us-west-1
+        - us-east-1
+        - me-central-1
+        - me-east-1
     ArtifactBuildProperty:
       CodeRepo:
         Platform: github
