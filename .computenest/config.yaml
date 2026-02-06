@@ -67,21 +67,17 @@ Artifact:
     ArtifactType: EcsImage
     ArtifactName: ecs_image_quickstart-openhands
     Description: quickstart-openhands EcsImage
-    ArtifactProperty:
-      RegionId: ${ImageBuilder.EcsImage.RegionId}
-      ImageId: ${ImageBuilder.EcsImage.SourceImageId}
-ImageBuilder:
-  EcsImage:
-    RegionId: ap-southeast-1
-    # 使用最新的LTS版本Alibaba Cloud Linux
-    SourceImageId: aliyun_3_x64_20G_alibase_20240819.vhd
-    SystemDiskSize: 40
-    InstanceType: ecs.c7.2xlarge
-    InternetMaxBandwidthOut: 100
-    CommandType: RunShellScript
-    Timeout: 10800
-    Tags: []
-    CommandContent: |-
+    SupportRegionIds:
+        - ap-southeast-1
+    ArtifactBuildProperty:
+      CodeRepo:
+        Platform: github
+        Owner: LYH-RAIN
+        RepoName: aliyun-computenest/quickstart-openhands
+        Branch: main
+      RegionId: ap-southeast-1
+      CommandType: RunShellScript
+      CommandContent: |-
       #!/bin/bash
       # 升级基础组件：
       yum check-update
@@ -122,4 +118,4 @@ ImageBuilder:
       sudo systemctl enable --now docker.socket
       sudo systemctl enable --now docker.service
 
-      docker pull docker.all-hands.dev/all-hands-ai/runtime:0.47-nikolaik
+      docker pull docker.all-hands.dev/all-hands-ai/runtime:0.14-nikolaik
