@@ -33,10 +33,6 @@ OpenHands在计算巢上的费用主要涉及：
 - 包年包月
 
 
-## 部署架构
-部署架构采用ECS(云服务器)单机部署
-![img.png](img_1.png)`(部署概述内容)`
-
 ## 部署流程
 
 ### 部署步骤
@@ -60,3 +56,6 @@ OpenHands在计算巢上的费用主要涉及：
 选择Custom Model， Custom Model的格式为"openai/model_name" 可选的model_name[参考链接](https://help.aliyun.com/zh/model-studio/compatibility-of-openai-with-dashscope?spm=a2c4g.11186623.help-menu-2400256.d_2_9_0.fef0516eQvFk8s&scm=20140722.H_2833609._.OR_help-T_cn~zh-V_1)
    ![img_5.png](img_5.png)
 4. 配置百炼的API Key，点击"Save"保存即可。API Key的获取方式请参考：[获取百炼API Key](https://developer.aliyun.com/article/1655158?spm=5176.24779694.0.0.178f7f8bkOyGLR)
+
+### 使用须知
+本工具为第三方开源项目，阿里云仅提供云资源和部署入口支持，不对工具自身功能、生成内容、执行结果、服务可用性及额外费用承担责任。
